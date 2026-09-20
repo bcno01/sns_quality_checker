@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SNS投稿前エンコード診断</title>
+<meta name="description" content="画像・動画がSNSに適したエンコードになっているかをブラウザ内だけで診断するツール" />
+<meta name="theme-color" content="#f6f7fb" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="app-header">
+  <h1>SNS投稿前エンコード診断</h1>
+  <p class="subtitle">画像・動画がX / Instagram / TikTok / YouTube Shorts / LINEにそのまま投稿して大丈夫か、ブラウザ内だけで診断します。</p>
+</header>
+
+<main>
+  <section class="disclaimer">
+    <strong>注意：</strong>
+    実際にSNSへアップロードして確認しているわけではありません（ログインが必要になるため）。
+    各社が公開している推奨仕様やアップロード上限をもとにした<strong>目安の診断</strong>です。
+    実際の挙動とは差が生じる場合があります。詳しくは
+    <a href="SPEC.md" target="_blank" rel="noopener">SPEC.md</a> を参照してください。
+    ファイルはどこにもアップロードされず、すべての処理は手元のブラウザ内で完結します。
+  </section>
+
+  <!-- 1. ドロップ画面 -->
+  <section id="drop-section" class="view">
+    <div id="drop-zone" class="drop-zone">
+      <div class="drop-zone-icon">⬆</div>
+      <p class="drop-zone-title">ここに画像・動画をドロップ！</p>
+      <p class="drop-zone-or">または</p>
+      <button type="button" id="browse-button" class="browse-button">ファイルを選択</button>
+      <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,video/webm" hidden />
+    </div>
+  </section>
+
+  <!-- 2. 解析中画面 -->
+  <section id="analyze-section" class="view hidden">
+    <div class="progress-card">
+      <div class="progress-card-head">
+        <span id="analyze-filename"></span>
+        <span class="progress-percent" id="analyze-percent">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-bar-fill" id="analyze-bar"></div></div>
+      <p class="progress-detail">
+        <span id="analyze-label">解析中…</span>
+        <span id="analyze-eta"></span>
+      </p>
+    </div>
+  </section>
+
+  <!-- 3. プラットフォーム選択＋診断結果画面 -->
+  <section id="app-section" class="view hidden">
+    <div id="file-info" class="file-info"></div>
+
+    <div class="platform-panel">
+      <h2>どこに投稿する？</h2>
+      <div id="platform-list" class="platform-list"></div>
+    </div>
+
+    <section id="result-section" class="hidden">
+      <div id="result-card" class="result-card"></div>
+    </section>
+
+    <button id="reset-button" type="button" class="reset-button">別のファイルを選ぶ</button>
+  </section>
+</main>
+
+<footer class="app-footer">
+  <p>すべてローカル処理・オフライン対応PWA。<span id="install-hint"></span></p>
+</footer>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
