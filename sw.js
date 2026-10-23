@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v6";
+const CACHE_VERSION = "v7";
 const SHELL_CACHE = `sns-quality-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `sns-quality-runtime-${CACHE_VERSION}`;
 

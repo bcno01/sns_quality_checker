@@ -93,11 +93,13 @@ async function handleFile(file) {
   }
 
   fileInfoEl.innerHTML = `
-    <span class="name">${file.name}</span>
+    <span class="name"></span>
     <span class="meta">${kind === "image" ? "画像" : "動画"} ・ ${analyzed.width}×${analyzed.height} ・ ${formatBytes(file.size)}${
     analyzed.durationSec ? ` ・ ${analyzed.durationSec.toFixed(1)}秒` : ""
   }</span>
   `;
+  // ファイル名は利用者が決めた文字列なので、HTMLとして解釈されないようtextContentで入れる
+  fileInfoEl.querySelector(".name").textContent = file.name;
 
   renderPlatformList();
   showView("app");
